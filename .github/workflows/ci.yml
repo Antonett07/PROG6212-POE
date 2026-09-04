@@ -1,1 +1,21 @@
+name: RaceDay CI Workflow
 
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check /docs Directory Structure
+        run: |
+          echo "Checking required planning files..."
+          test -f README.md
+          test -f docs/RaceDay_Schema.sql
+          echo "All core Part 1 planning files are present."
