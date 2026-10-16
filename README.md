@@ -101,3 +101,37 @@ UNION ALL
 SELECT 'Enrolments', COUNT(*) FROM dbo.Enrolments
 UNION ALL
 SELECT 'Results', COUNT(*) FROM dbo.Results;
+
+
+
+
+
+##  Technology Stack & Architecture
+
+* **Framework:** C# .NET 8 Web API
+* **Database & ORM:** SQL Server / SQLite with Entity Framework Core (Code-First Approach)
+* **Authentication & Session:** Server-Side Sessions (`HttpContext.Session`) storing `UserId` and `UserRole`, secured via custom `[AuthorizeRole]` action filters and ASP.NET Core `PasswordHasher`.
+* **API Documentation:** Integrated Swagger UI (`/swagger`) for live interactive endpoint testing.
+* **Testing:** xUnit automated unit test suite with EF Core InMemory database provider.
+* **CI/CD:** GitHub Actions automated build and test pipeline.
+
+---
+
+##  Repository Structure (Part 2)
+
+```text
+RaceDay/
+├── .github/
+│   workflows/
+│       └── ci.yml               # GitHub Actions CI/CD pipeline workflow
+├── RaceDay.DB/
+│   ├── Attributes/
+│   │   └── AuthorizeRoleAttribute.cs  # Role-based session security filter
+│   ├── Controllers/             # RESTful API Endpoints (Auth, Events, Categories, Enrolments, Results)
+│   ├── Data/                    # EF Core DbContext & Schema configuration
+│   ├── Models/                  # Entity classes (Roles, Users, Events, Categories, Enrolments, Results)
+│   ├── Program.cs               # Application startup, services, and middleware
+│   └── appsettings.json         # Connection strings & configuration
+├── RaceDay.Tests/               # xUnit automated unit testing suite
+├── README.md                    # Project documentation
+└── RaceDay.sln                  # Visual Studio Solution file
